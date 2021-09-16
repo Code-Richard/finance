@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let total = {{total | tojson}}
+            let ID = document.querySelector("#total")
+            console.log(total)
+            if (total > 10000) {
+                ID.style.color = 'green';
+            }
+            else if (total < 10000 ) {
+                ID.style.color = 'red';
+            }
+            else {
+                ID.style.color = 'white';
+            }
+        })
+    </script>
+
+
+    <table class="table table-dark table-striped shadow">
+        <thead class="table-info">
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody class="justify-content-center">
+            {% for stock in stock_info %}
+            <tr>
+                <td>{{stock["symbol"]}}</td>
+                <td>{{stock["SUM(number_of_shares)"]}}</td>
+                <td>{{current_prices[stock["symbol"]] | usd}}</td>
+                <td>{{total_value_per_stock[stock["symbol"]] | usd}}</td>
+            </tr>    
+            {% endfor %}
+            <tr>
+                <td>CASH</td>
+                <td></td>
+                <td></td>
+                <td>{{user_cash | usd}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="total">{{total | usd}} ({{pc_return}}%)</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

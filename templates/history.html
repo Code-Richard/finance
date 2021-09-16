@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table class="table table-dark table-striped shadow">
+        <thead class="table-info">
+            <tr>
+                <th>Symbol</th>
+                <th>Action</th>
+                <th>Price</th>
+                <th>Shares</th>
+                <th>Total</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody class="justify-content-center">
+            {% for stock in stock_info %}
+            <tr>
+                <td>{{stock["symbol"]}}</td>
+                <td>{{stock["action"]}}</td>
+                <td>{{stock["price"] | usd}}</td>
+                <td>{{stock["number_of_shares"]}}</td>
+                <td>{{stock["total_amount"] | usd}}</td>
+                <td>{{stock["time"]}}</td>
+            </tr>    
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
